@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CashNoteSystemApp": {
+    "cash-note-system-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -25,12 +25,7 @@
               }
             ],
             "styles": ["src/styles.css"],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -66,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CashNoteSystemApp:build:production"
+              "buildTarget": "cash-note-system-app:build:production"
             },
             "development": {
-              "buildTarget": "CashNoteSystemApp:build:development"
+              "buildTarget": "cash-note-system-app:build:development"
             }
           },
           "defaultConfiguration": "development"
