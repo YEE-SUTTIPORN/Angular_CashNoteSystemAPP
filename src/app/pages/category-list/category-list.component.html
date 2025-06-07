@@ -1,0 +1,81 @@
+<div class="p-6 max-w-4xl mx-auto text-gray-900 dark:text-gray-100">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">หมวดหมู่</h2>
+        <!-- ปุ่ม -->
+        <button (click)="showModal = true"
+            class="text-white px-4 py-2 rounded-lg shadow-md bg-blue-500 hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500">
+            + เพิ่มหมวดหมู่
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div *ngFor="let category of categories"
+            class="flex items-center justify-between bg-white dark:bg-gray-800 rounded-xl shadow-md p-4">
+            <div class="flex items-center space-x-4">
+                <div class="text-2xl" [ngClass]="category.iconColor">{{ category.icon }}</div>
+                <div>
+                    <h3 class="font-medium text-gray-900 dark:text-white">{{ category.name }}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        {{ category.type === 'income' ? 'รายรับ' : 'รายจ่าย' }}
+                    </p>
+                </div>
+            </div>
+            <div class="space-x-2">
+                <button class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-400 dark:hover:text-yellow-500"
+                    (click)="editCategory(category)">แก้ไข</button>
+                <button class="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500"
+                    (click)="deleteCategory(category.id)">ลบ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Background -->
+<div *ngIf="showModal"
+    class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/50 transition-opacity duration-300">
+
+    <!-- Modal Content -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md animate-bounce-in-smooth">
+        <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">เพิ่มหมวดหมู่ใหม่</h2>
+
+        <div class="space-y-4">
+            <!-- Name -->
+            <div>
+                <label for="name"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">ชื่อหมวดหมู่</label>
+                <input id="name" [(ngModel)]="newCategory.name"
+                    class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
+            </div>
+
+            <!-- Type -->
+            <div>
+                <label for="categoryType"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">ประเภท</label>
+                <select id="categoryType" [(ngModel)]="newCategory.type"
+                    class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <option value="income">รายรับ</option>
+                    <option value="expense">รายจ่าย</option>
+                </select>
+            </div>
+
+            <!-- Icon -->
+            <div>
+                <label for="icon" class="block text-sm font-medium text-gray-700 dark:text-gray-300">ไอคอน
+                    (อีโมจิ)</label>
+                <input id="icon" [(ngModel)]="newCategory.icon" maxlength="2"
+                    class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="mt-6 flex justify-end space-x-2">
+            <button
+                class="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded hover:bg-gray-400 dark:hover:bg-gray-500"
+                (click)="closeModal()">ยกเลิก</button>
+            <button
+                class="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded hover:bg-blue-700 dark:hover:bg-blue-600"
+                (click)="addCategory()">เพิ่ม</button>
+        </div>
+    </div>
+</div>

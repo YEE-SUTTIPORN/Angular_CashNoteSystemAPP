@@ -1,0 +1,59 @@
+<div class="p-6 space-y-8">
+
+    <!-- ยอดรวม -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+            class="bg-gradient-to-r from-green-400 to-green-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold">ยอดคงเหลือ</h3>
+                    <p class="text-3xl font-bold mt-1">฿{{ balance | number }}</p>
+                </div>
+                <div class="text-4xl">💰</div>
+            </div>
+        </div>
+
+        <div
+            class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold">รายรับ</h3>
+                    <p class="text-3xl font-bold mt-1">฿{{ income | number }}</p>
+                </div>
+                <div class="text-4xl">📈</div>
+            </div>
+        </div>
+
+        <div
+            class="bg-gradient-to-r from-red-400 to-red-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold">รายจ่าย</h3>
+                    <p class="text-3xl font-bold mt-1">฿{{ expense | number }}</p>
+                </div>
+                <div class="text-4xl">📉</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- รายการล่าสุด -->
+    <div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg">
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">รายการล่าสุด</h3>
+        <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+            <li *ngFor="let tx of recentTransactions" class="py-4 flex justify-between items-center">
+                <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        {{ tx.date }} - {{ tx.category }} <span class="italic">({{ tx.type }})</span>
+                    </p>
+                </div>
+                <div [ngClass]="{
+          'text-green-600 font-bold': tx.type === 'รายรับ',
+          'text-red-500 font-bold': tx.type === 'รายจ่าย'
+        }">
+                    ฿{{ tx.amount | number }}
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>

@@ -1,0 +1,55 @@
+<div class="max-w-3xl mx-auto p-6 text-gray-900 dark:text-gray-100">
+    <h2 class="text-2xl font-semibold mb-6">ตั้งค่าระบบ</h2>
+
+    <!-- User Info -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md mb-6">
+        <h3 class="text-lg font-semibold mb-4">ข้อมูลผู้ใช้</h3>
+        <div class="space-y-4">
+            <div>
+                <label for="username"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">ชื่อผู้ใช้</label>
+                <input id="username" type="text" [(ngModel)]="user.username"
+                    class="mt-1 block w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-3 py-2" />
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">อีเมล</label>
+                <input id="email" type="email" [(ngModel)]="user.email"
+                    class="mt-1 block w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-3 py-2" />
+            </div>
+        </div>
+        <button class="mt-4 text-white px-4 py-2 rounded-lg shadow-md bg-blue-500 hover:bg-blue-600"
+            (click)="saveUserInfo()">💾 บันทึก</button>
+    </div>
+
+    <!-- Password -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md mb-6">
+        <h3 class="text-lg font-semibold mb-4">เปลี่ยนรหัสผ่าน</h3>
+        <div class="space-y-4">
+            <div>
+                <label for="password"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">รหัสผ่านใหม่</label>
+                <input id="password" type="password" [(ngModel)]="newPassword"
+                    class="mt-1 block w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-3 py-2" />
+            </div>
+        </div>
+        <button class="mt-4 bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600"
+            (click)="changePassword()">เปลี่ยนรหัสผ่าน</button>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md mb-6">
+        <h3 class="text-lg font-semibold mb-4">ธีม</h3>
+        <label class="inline-flex items-center">
+            <input type="checkbox" [(ngModel)]="darkMode" class="form-checkbox text-indigo-600"
+                (change)="toggleTheme()" />
+            <span class="ml-2">เปิดโหมดมืด</span>
+        </label>
+    </div>
+
+    <!-- Reset -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+        <h3 class="text-lg font-semibold mb-4 text-red-600 dark:text-red-400">ลบข้อมูลทั้งหมด</h3>
+        <button class="bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700"
+            (click)="resetAll()">ล้างข้อมูล</button>
+    </div>
+</div>

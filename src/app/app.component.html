@@ -1,0 +1,58 @@
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex flex-col md:flex-row">
+
+  <!-- Mobile Menu Overlay -->
+  <div *ngIf="mobileMenuOpen" class="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden" (click)="closeMobileMenu()">
+  </div>
+
+  <!-- Sidebar -->
+  <aside
+    class="w-64 bg-white dark:bg-gray-800 shadow-md z-50 md:z-0 fixed md:static h-full md:h-auto transition-transform duration-300 md:translate-x-0"
+    [class.translate-x-0]="mobileMenuOpen" [class.-translate-x-full]="!mobileMenuOpen && isMobileScreen" id="sidebar">
+    <div class="p-6 text-2xl font-bold text-blue-600 dark:text-blue-400">
+      💸 Cash Note
+    </div>
+    <nav class="mt-6 space-y-2">
+      <a routerLink="/dashboard" routerLinkActive="bg-blue-100 dark:bg-blue-900"
+        class="block px-6 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition">📊 Dashboard</a>
+      <a routerLink="/add" routerLinkActive="bg-blue-100 dark:bg-blue-900"
+        class="block px-6 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition">➕ เพิ่มรายการ</a>
+      <a routerLink="/transactions" routerLinkActive="bg-blue-100 dark:bg-blue-900"
+        class="block px-6 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition">📋 รายการทั้งหมด</a>
+      <a routerLink="/categories" routerLinkActive="bg-blue-100 dark:bg-blue-900"
+        class="block px-6 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition">📂 หมวดหมู่</a>
+      <a routerLink="/settings" routerLinkActive="bg-blue-100 dark:bg-blue-900"
+        class="block px-6 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition">⚙️ การตั้งค่า</a>
+      <button (click)="onClickLogout()"
+        class="block px-6 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 rounded transition">❌
+        ออกจากระบบ</button>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <div class="flex-1 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow px-6 py-4 flex justify-between items-center md:hidden">
+      <button (click)="toggleMobileMenu()" class="text-gray-700 dark:text-gray-200 text-2xl">
+        ☰
+      </button>
+      <span class="text-xl font-bold">💸 Cash Note</span>
+      <button (click)="toggleDarkMode()"
+        class="text-gray-600 dark:text-gray-300 hover:text-blue-500 transition text-xl">
+        🌓
+      </button>
+    </header>
+
+    <header class="hidden md:flex bg-white dark:bg-gray-800 shadow px-6 py-4 justify-between items-center">
+      <h1 class="text-xl font-bold">📅 {{ today | date: 'fullDate' }}</h1>
+      <button (click)="toggleDarkMode()"
+        class="text-gray-600 dark:text-gray-300 hover:text-blue-500 transition text-xl">
+        🌓 Toggle Theme
+      </button>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-grow">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

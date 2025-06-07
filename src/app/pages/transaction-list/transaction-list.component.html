@@ -1,0 +1,65 @@
+<div class="max-w-5xl mx-auto p-6 space-y-6">
+    <!-- ✅ สรุปยอดรวม -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <p class="text-gray-600 dark:text-gray-300">ยอดรายรับ</p>
+            <p class="text-2xl font-bold text-green-500">฿{{ totalIncome | number }}</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <p class="text-gray-600 dark:text-gray-300">ยอดรายจ่าย</p>
+            <p class="text-2xl font-bold text-red-500">฿{{ totalExpense | number }}</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <p class="text-gray-600 dark:text-gray-300">คงเหลือ</p>
+            <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">฿{{ balance | number }}</p>
+        </div>
+    </div>
+
+    <!-- ✅ ค้นหา + ปุ่มเรียง -->
+    <div class="flex justify-between items-center flex-wrap gap-3">
+        <input [(ngModel)]="searchTerm" type="text" placeholder="🔍 ค้นหาหมวดหมู่หรือประเภท"
+            class="w-full sm:w-1/2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow-md" />
+        <button (click)="toggleSortOrder()"
+            class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition shadow-sm">
+            📅 เรียง {{ sortNewestFirst ? 'ใหม่ → เก่า' : 'เก่า → ใหม่' }}
+        </button>
+    </div>
+
+    <!-- ✅ รายการ -->
+    <div *ngIf="filteredTransactions.length > 0" class="space-y-4">
+        <div *ngFor="let tx of filteredTransactions"
+            class="flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 shadow hover:shadow-lg transition">
+
+            <!-- Left -->
+            <div class="flex items-center gap-4">
+                <div [ngClass]="tx.type === 'รายรับ' ? 'bg-green-500' : 'bg-red-500'" class="w-2 h-10 rounded-lg">
+                </div>
+                <div>
+                    <p class="text-lg font-semibold text-gray-800 dark:text-white">{{ tx.category }}</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                        📅 {{ tx.date }} •
+                        <span [ngClass]="tx.type === 'รายรับ' ? 'text-green-600' : 'text-red-500'" class="font-medium">
+                            {{ tx.type }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right -->
+            <div class="text-right space-y-2">
+                <p class="text-xl font-bold" [ngClass]="tx.type === 'รายรับ' ? 'text-green-500' : 'text-red-500'">
+                    ฿{{ tx.amount | number }}
+                </p>
+                <div class="flex gap-2 justify-end">
+                    <button class="text-yellow-500 hover:text-yellow-600 transition text-sm">✏️ แก้ไข</button>
+                    <button (click)="deleteTransaction(tx.id)"
+                        class="text-red-500 hover:text-red-600 transition text-sm">🗑️ ลบ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="filteredTransactions.length === 0" class="text-center text-gray-500 dark:text-gray-400 mt-10">
+        😕 ไม่พบข้อมูลรายการที่คุณค้นหา
+    </div>
+</div>
